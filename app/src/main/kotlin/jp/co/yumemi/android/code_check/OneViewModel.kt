@@ -31,14 +31,14 @@ class OneViewModel(
         val client = HttpClient(Android)
 
         return@runBlocking GlobalScope.async {
-            val response: HttpResponse = client?.get("https://api.github.com/search/repositories") {
+            val response: HttpResponse = client.get("https://api.github.com/search/repositories") {
                 header("Accept", "application/vnd.github.v3+json")
                 parameter("q", inputText)
             }
 
             val jsonBody = JSONObject(response.receive<String>())
 
-            val jsonItems = jsonBody.optJSONArray("items")!!
+            val jsonItems = jsonBody.optJSONArray("items")
 
             val items = mutableListOf<Item>()
 
@@ -46,9 +46,9 @@ class OneViewModel(
              * アイテムの個数分ループする
              */
             for (i in 0 until jsonItems.length()) {
-                val jsonItem = jsonItems.optJSONObject(i)!!
+                val jsonItem = jsonItems.optJSONObject(i)
                 val name = jsonItem.optString("full_name")
-                val ownerIconUrl = jsonItem.optJSONObject("owner")!!.optString("avatar_url")
+                val ownerIconUrl = jsonItem.optJSONObject("owner")?.optString("avatar_url")
                 val language = jsonItem.optString("language")
                 val stargazersCount = jsonItem.optLong("stargazers_count")
                 val watchersCount = jsonItem.optLong("watchers_count")
@@ -77,11 +77,11 @@ class OneViewModel(
 
 @Parcelize
 data class Item(
-    val name: String,
-    val ownerIconUrl: String,
-    val language: String,
-    val stargazersCount: Long,
-    val watchersCount: Long,
-    val forksCount: Long,
-    val openIssuesCount: Long,
+    val name: String?,
+    val ownerIconUrl: String?,
+    val language: String?,
+    val stargazersCount: Long?,
+    val watchersCount: Long?,
+    val forksCount: Long?,
+    val openIssuesCount: Long?,
 ) : Parcelable
