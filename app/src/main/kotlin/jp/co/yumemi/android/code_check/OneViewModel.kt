@@ -75,6 +75,7 @@ class OneViewModel(
     }
 }
 
+//表示する情報
 @Parcelize
 data class item(
     val name: String?,
