@@ -29,12 +29,17 @@ class TwoFragment : Fragment(R.layout.fragment_two) {
         var item = args.item
 
         //取得data表示方法
-        _binding?.ownerIconView?.load(item.ownerIconUrl);
-        _binding?.nameView?.text = item.name;
-        _binding?.languageView?.text = item.language;
-        _binding?.starsView?.text = "${item.stargazersCount} stars";
-        _binding?.watchersView?.text = "${item.watchersCount} watchers";
-        _binding?.forksView?.text = "${item.forksCount} forks";
-        _binding?.openIssuesView?.text = "${item.openIssuesCount} open issues";
+        _binding?.ownerIconView?.load(item.ownerIconUrl)
+        _binding?.nameView?.text = item.name
+        _binding?.languageView?.text = item.language
+        _binding?.starsView?.text = "${item.stargazersCount} stars"
+        _binding?.watchersView?.text = "${item.watchersCount} watchers"
+        _binding?.forksView?.text = "${item.forksCount} forks"
+        _binding?.openIssuesView?.text = "${item.openIssuesCount} open issues"
+    }
+
+    override fun onDestroyView() {
+        binding = null
+        super.onDestroyView()
     }
 }
