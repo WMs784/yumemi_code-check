@@ -27,12 +27,12 @@ class OneFragment : Fragment(R.layout.fragment_one) {
         val dividerItemDecoration =
             DividerItemDecoration(context, layoutManager.orientation)
         val adapter = CustomAdapter(object : CustomAdapter.OnItemClickListener {
-            override fun itemClick(item: item) {
+            override fun itemClick(item: item) { //ボタンが押された時の処理
                 gotoRepositoryFragment(item)
             }
         })
 
-        binding.searchInputText
+        binding.searchInputText //検索処理
             .setOnEditorActionListener { editText, action, _ ->
                 if (action == EditorInfo.IME_ACTION_SEARCH) {
                     editText.text.toString().let {
@@ -52,7 +52,7 @@ class OneFragment : Fragment(R.layout.fragment_one) {
         }
     }
 
-    fun gotoRepositoryFragment(item: item) {
+    fun gotoRepositoryFragment(item: item) { //Repositoryごとの詳細画面
         val action = OneFragmentDirections
             .actionRepositoriesFragmentToRepositoryFragment(item = item)
         findNavController().navigate(action)
