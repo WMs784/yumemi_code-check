@@ -3,7 +3,6 @@
  */
 package jp.co.yumemi.android.code_check
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -29,6 +28,7 @@ class TwoFragment : Fragment(R.layout.fragment_two) {
 
         var item = args.item
 
+        //取得data表示方法
         _binding?.ownerIconView?.load(item.ownerIconUrl)
         _binding?.nameView?.text = item.name
         _binding?.languageView?.text = item.language
