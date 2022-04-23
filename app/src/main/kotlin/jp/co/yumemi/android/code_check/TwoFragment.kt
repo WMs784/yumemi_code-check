@@ -17,7 +17,7 @@ class TwoFragment : Fragment(R.layout.fragment_two) {
     private val args: TwoFragmentArgs by navArgs()
 
     private var binding: FragmentTwoBinding? = null
-    private val _binding get() = binding!!
+    private val _binding get() = binding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,12 +28,18 @@ class TwoFragment : Fragment(R.layout.fragment_two) {
 
         var item = args.item
 
-        _binding.ownerIconView.load(item.ownerIconUrl);
-        _binding.nameView.text = item.name;
-        _binding.languageView.text = item.language;
-        _binding.starsView.text = "${item.stargazersCount} stars";
-        _binding.watchersView.text = "${item.watchersCount} watchers";
-        _binding.forksView.text = "${item.forksCount} forks";
-        _binding.openIssuesView.text = "${item.openIssuesCount} open issues";
+        //取得data表示方法
+        _binding?.ownerIconView?.load(item.ownerIconUrl)
+        _binding?.nameView?.text = item.name
+        _binding?.languageView?.text = item.language
+        _binding?.starsView?.text = "${item.stargazersCount} stars"
+        _binding?.watchersView?.text = "${item.watchersCount} watchers"
+        _binding?.forksView?.text = "${item.forksCount} forks"
+        _binding?.openIssuesView?.text = "${item.openIssuesCount} open issues"
+    }
+
+    override fun onDestroyView() {
+        binding = null
+        super.onDestroyView()
     }
 }

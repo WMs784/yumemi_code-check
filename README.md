@@ -27,22 +27,44 @@
 2. GitHub API（`search/repositories`）でリポジトリを検索し、結果一覧を概要（リポジトリ名）で表示
 3. 特定の結果を選択したら、該当リポジトリの詳細（リポジトリ名、オーナーアイコン、プロジェクト言語、Star 数、Watcher 数、Fork 数、Issue 数）を表示
 
-## 課題取り組み方法
+## 開発方法
+1. issue ごとに feature branch を切り，作業はそこで行う．
+2. 一段落するごとに commit し，一連の作業が終わったら動作確認の後 dev branch に pull request を行う．
+3. 問題なければ merge し，それぞれの branch に dev から pull を行う．
+4. 修正が完了したら dev branch から main branch に pull request を行う． 
+5. 問題がなければ merge する．
 
-Issues を確認した上、本プロジェクトを [**Duplicate** してください](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/duplicating-a-repository)（Fork しないようにしてください。必要ならプライベートリポジトリにしても大丈夫です）。今後のコミットは全てご自身のリポジトリで行ってください。
+## やったこと
+- ### issue1
+  - 命名規約に基づくObjectの名称変更
+  - coding conventionに基づくReformat (改行位置，空白etc)
+  - comment 追加
+  - typo 修正 
+- ### issue2
+  - 非null表明演算子の削除とその対応
+  - `lateinit` 削除とその対応
+- ### issue3
+  - layout の修正
+  - dark-mode への対応 (文字色変更)
+  - LeakCanary 導入 (Memory Leak が検出できる)  
 
-コードチェックの課題 Issue は全て [`課題`](https://github.com/yumemi-inc/android-engineer-codecheck/milestone/1) Milestone がついており、難易度に応じて Label が [`初級`](https://github.com/yumemi-inc/android-engineer-codecheck/issues?q=is%3Aopen+is%3Aissue+label%3A初級+milestone%3A課題)、[`中級`](https://github.com/yumemi-inc/android-engineer-codecheck/issues?q=is%3Aopen+is%3Aissue+label%3A中級+milestone%3A課題+) と [`ボーナス`](https://github.com/yumemi-inc/android-engineer-codecheck/issues?q=is%3Aopen+is%3Aissue+label%3Aボーナス+milestone%3A課題+) に分けられています。課題の必須／選択は下記の表とします。
+### やってみたけどうまくいかなかったこと
+- class item -> Item への名称変更
+  - Refactor -> Rename を使用したので，変更すべき箇所の選定がうまくできていなかったか
+  - 結局元に戻しitem のまま  
+- Memory Leak の解消
+  - `TwoFragment.kt`(https://github.com/WMs784/yumemi_code-check/blob/main/app/src/main/kotlin/jp/co/yumemi/android/code_check/TwoFragment.kt) に
+    `onDestroyView`を追加したが，うまく解消できなかった．
+  - Memory Leak についてはよくわかっていなかったので，今回のテストで色々調べて勉強になった．
 
-|   | 初級 | 中級 | ボーナス
-|--:|:--:|:--:|:--:|
-| 新卒／未経験者 | 必須 | 選択 | 選択 |
-| 中途／経験者 | 必須 | 必須 | 選択 |
-
-課題 Issueをご自身のリポジトリーにコピーするGitHub Actionsをご用意しております。  
-[こちらのWorkflow](./.github/workflows/copy-issues.yml)を[手動でトリガーする](https://docs.github.com/ja/actions/managing-workflow-runs/manually-running-a-workflow)ことでコピーできますのでご活用下さい。
-
-課題が完成したら、リポジトリのアドレスを教えてください。
-
-## 参考記事
-
-提出された課題の評価ポイントに関しては、[こちらの記事](https://qiita.com/blendthink/items/aa70b8b3106fb4e3555f)に詳しく書かれてありますので、ぜひご覧ください。
+### できなかったこと
+- issue #4 Fat Fragment の解消
+  - Fat Fragment は聞いたことがない言葉だったので色々と調べたが，参考になりそうなものをうまく見つけることができなかった．
+  - Fragmentの複数のFragmentに分ければ良いということなのかなと思ったが，やり方わからず．
+- null に対する例外処理
+  - 検索結果がない場合に「検索結果はありません」みたいな表示が作れたらよかった．
+  - Repository 詳細画面でも取得した data (ex.language)がnull だった場合の処理が必要になる.
+- 画面回転時の処理
+  - 検索結果が表示されているときに画面が回転すると検索結果がリセットされてしまうという問題がある．
+  これも解決しようとして調べたが，うまく実装できなかった．
+    
